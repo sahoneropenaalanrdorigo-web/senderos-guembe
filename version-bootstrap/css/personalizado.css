@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Personalización de Bootstrap con la identidad de Senderos Güembé (Laboratorios 10-11)
+   Estrategia: sobrescribir las VARIABLES CSS de Bootstrap (--bs-*), no sus reglas.
+   Se carga DESPUÉS de bootstrap.min.css.
+   ========================================================================== */
+
+/* ---------- 1. Tokens de la marca y variables globales de Bootstrap ---------- */
+:root,
+[data-bs-theme="light"] {
+  /* Paleta Laguna: turquesa de las lagunas + naranja del tucán (contraste revisado en claro y oscuro) */
+  --marca-bosque: #0b5c63;
+  --marca-sol: #f59e3b;
+  --marca-sol-oscuro: #e8862a;
+  --marca-tierra: #b4312a;
+
+  --bs-body-bg: #f4f8f7;
+  --bs-body-bg-rgb: 244, 248, 247;      /* bg-body usa la versión rgb */
+  --bs-body-color: #16262a;
+  --bs-tertiary-bg: #e6efed;
+  --bs-tertiary-bg-rgb: 230, 239, 237;  /* bg-body-tertiary (menú, franja de ventajas) */
+  --bs-link-color-rgb: 11, 92, 99;        /* los enlaces usan rgba(var(--bs-link-color-rgb), …) */
+  --bs-link-hover-color-rgb: 180, 49, 42;
+  --bs-danger-rgb: 180, 49, 42;           /* el badge 'Más vendido' toma el coral de la marca */
+  /* La marca (text-success-emphasis) y el pie (bg-success-subtle) usan las clases de "success" */
+  --bs-success-rgb: 11, 92, 99;
+  --bs-success-text-emphasis: #0b5c63;
+  --bs-success-bg-subtle: #d4eae8;
+  --bs-success-border-subtle: #a9d3cf;
+  --bs-border-radius-lg: 1rem;
+}
+
+[data-bs-theme="dark"] {
+  --marca-bosque: #7fd4cf;
+  --bs-body-bg: #0d1a1c;
+  --bs-body-bg-rgb: 13, 26, 28;
+  --bs-body-color: #e3eeec;
+  --bs-tertiary-bg: #132427;
+  --bs-tertiary-bg-rgb: 19, 36, 39;
+  --bs-link-color-rgb: 127, 212, 207;
+  --bs-link-hover-color-rgb: 255, 158, 138;
+  --bs-success-text-emphasis: #7fd4cf;
+  --bs-success-bg-subtle: #10292b;
+  --bs-success-border-subtle: #2c4245;
+}
+
+/* ---------- 2. Tipografía ---------- */
+h1,
+h2,
+h3,
+.h3,
+.navbar-brand {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.navbar-brand {
+  color: var(--marca-bosque);
+}
+
+/* ---------- 3. Botones con la marca: se redefinen las variables del componente ---------- */
+.btn-warning {
+  --bs-btn-color: #16262a;
+  --bs-btn-bg: var(--marca-sol);
+  --bs-btn-border-color: var(--marca-sol);
+  --bs-btn-hover-color: #16262a;
+  --bs-btn-hover-bg: var(--marca-sol-oscuro);
+  --bs-btn-hover-border-color: var(--marca-sol-oscuro);
+  --bs-btn-active-bg: var(--marca-sol-oscuro);
+}
+
+.btn-outline-success {
+  --bs-btn-color: var(--marca-bosque);
+  --bs-btn-border-color: var(--marca-bosque);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #0b5c63;
+  --bs-btn-hover-border-color: #0b5c63;
+  --bs-btn-active-bg: #0b5c63;
+}
+
+/* ---------- 4. Tarjetas y carrusel ---------- */
+.card-img-top {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.carousel-item img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* El texto del carrusel sobre un degradado para garantizar el contraste */
+.carousel-caption {
+  inset: auto 0 0;
+  padding: 3rem 1.5rem 2.5rem;
+  background: linear-gradient(to top, rgb(5 33 37 / 0.9), transparent);
+  color: #ffffff; /* texto blanco sobre el degradado, también en modo oscuro */
+  text-align: start;
+}
+
+/* ---------- 5. Movimiento con propósito ---------- */
+@media (hover: hover) {
+  .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.75rem 1.5rem rgb(22 38 42 / 0.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .carousel-item {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}

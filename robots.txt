@@ -1,0 +1,6 @@
+# robots.txt — Senderos Güembé
+User-agent: *
+Disallow: /gracias.html
+Disallow: /version-bootstrap/
+
+Sitemap: https://sahoneropenaalanrdorigo-web.github.io/senderos-guembe/sitemap.xml

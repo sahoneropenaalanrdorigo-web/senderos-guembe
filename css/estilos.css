@@ -1,0 +1,831 @@
+/* ==========================================================================
+   Senderos Güembé — hoja de estilos principal
+   Laboratorio 5: primera hoja de estilos (Diseño Web I, UPDS) — SOLUCIÓN
+   ========================================================================== */
+
+/* ---------- 1. Variables: la identidad de la marca en un solo lugar ---------- */
+:root {
+  /* Paleta Laguna: turquesa de las lagunas del Biocentro + naranja del pico del tucán.
+     Contraste verificado sobre --color-fondo: texto 14.6:1, bosque 7.2:1, suave 5.8:1, tierra 5.8:1 */
+  --color-bosque: #0b5c63;
+  --color-sol: #f59e3b;
+  --color-tierra: #b4312a;
+  --color-texto: #16262a;
+  --color-suave: #526468;
+  --color-fondo: #f4f8f7;
+  --color-blanco: #ffffff;
+
+  /* Tokens semánticos (Laboratorio 9): nombran la FUNCIÓN del color, no el color.
+     Así el modo oscuro solo redefine estos valores. */
+  --color-superficie: #ffffff;   /* tarjetas, campos, destacados */
+  --color-borde: #d3e0de;        /* bordes suaves */
+  --color-borde-fuerte: #7d9592; /* bordes de campos: 3.2:1 sobre la superficie */
+  --color-cebra: #e7f0ee;        /* filas pares de la tabla */
+  --color-resalte: #fde6c8;      /* fila bajo el puntero */
+  --color-error-fondo: #fdeeec;  /* campo con error */
+  --color-marca-fondo: #0b5c63;  /* fondos de marca con texto blanco (pie, encabezados de tabla): 7.7:1 */
+  --color-texto-sobre-sol: #16262a; /* texto sobre el naranja (botones, selección): fijo en ambos temas, 7.3:1 */
+  --color-acento-fondo: #b4312a;  /* fondo coral con texto blanco (insignia): fijo en ambos temas, 6.2:1 */
+
+  color-scheme: light dark;      /* los controles nativos (inputs, barras) siguen el tema */
+
+  /* Tipografías del sistema: cero descargas, cero espera */
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  --fuente-titulos: Georgia, "Times New Roman", serif;
+
+  /* Escala de espacios (múltiplos de 0.25rem = 4px) */
+  --espacio-s: 0.5rem;
+  --espacio-m: 1rem;
+  --espacio-l: 2rem;
+}
+
+/* ---------- 2. Reset moderno ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* La regla de oro: ningún medio se sale de su contenedor */
+img,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+iframe {
+  display: block;
+  max-width: 100%;
+  border: 0;
+}
+
+/* Los controles de formulario heredan la tipografía del sitio */
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+/* ---------- 3. Tipografía y colores base ---------- */
+body {
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-titulos);
+  color: var(--color-bosque);
+  line-height: 1.2;
+  margin-block: var(--espacio-l) var(--espacio-s);
+}
+
+h1 {
+  font-size: clamp(2rem, 1.5rem + 3vw, 3rem);
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+p,
+ul,
+ol,
+dl {
+  margin-block: 0 var(--espacio-m);
+}
+
+/* ---------- 4. Enlaces ---------- */
+a {
+  color: var(--color-bosque);
+}
+
+a:hover {
+  color: var(--color-tierra);
+}
+
+/* ---------- 5. Espaciado básico del contenido ---------- */
+main {
+  max-width: 70rem;
+  margin-inline: auto;
+  padding: var(--espacio-m);
+}
+
+header,
+footer {
+  padding: var(--espacio-m);
+}
+
+figcaption,
+small {
+  color: var(--color-suave);
+}
+
+/* ==========================================================================
+   Laboratorio 6 — Selectores, pseudoclases y pseudoelementos
+   ========================================================================== */
+
+/* ---------- 6. Foco visible para TODOS (accesibilidad de teclado) ---------- */
+:focus-visible {
+  outline: 3px solid var(--color-tierra);
+  outline-offset: 3px;
+}
+
+::selection {
+  background-color: var(--color-sol);
+  color: var(--color-texto-sobre-sol);
+}
+
+/* ---------- 7. Cabecera y menú de navegación ---------- */
+header > p:first-child {
+  font-family: var(--fuente-titulos);
+  font-size: 1.5rem;
+  color: var(--color-bosque);
+  margin-block-end: 0;
+}
+
+header > p:nth-child(2) {
+  color: var(--color-suave);
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+header nav a {
+  text-decoration: none;
+  font-weight: 600;
+  padding-block: 0.25rem;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* La página actual: un solo atributo sirve a la accesibilidad Y al estilo */
+header nav a[aria-current="page"] {
+  color: var(--color-texto);
+  border-block-end: 3px solid var(--color-sol);
+}
+
+/* ---------- 8. Botones (enlaces con aspecto de botón y botones reales) ---------- */
+.boton {
+  display: inline-block;
+  background-color: var(--color-sol);
+  color: var(--color-texto-sobre-sol);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.75em 1.5em;
+  border: 2px solid var(--color-sol);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.boton:hover {
+  background-color: var(--color-fondo);
+  color: var(--color-bosque);
+  border-color: var(--color-bosque);
+}
+
+.boton:active {
+  transform: translateY(1px);
+}
+
+/* Enlaces que abren otra pestaña: una flecha avisa visualmente */
+a[target="_blank"]::after {
+  content: " ↗";
+}
+
+/* ---------- 9. Listas, citas y figuras ---------- */
+li::marker {
+  color: var(--color-bosque);
+}
+
+blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--espacio-m);
+  border-inline-start: 4px solid var(--color-sol);
+  font-style: italic;
+}
+
+dt {
+  font-weight: 700;
+}
+
+dd {
+  margin-inline-start: 0;
+  margin-block-end: var(--espacio-s);
+}
+
+/* El tour al que se llega por un enlace (tours.html#mariposario) se resalta */
+article:target {
+  background-color: var(--color-superficie);
+  outline: 3px solid var(--color-sol);
+  outline-offset: 0.5rem;
+}
+
+/* ---------- 10. Tabla de tarifas ---------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+caption {
+  text-align: start;
+  color: var(--color-suave);
+  padding-block-end: var(--espacio-s);
+}
+
+th,
+td {
+  padding: 0.5rem 0.75rem;
+  border-block-end: 1px solid var(--color-borde);
+  text-align: start;
+}
+
+thead th {
+  background-color: var(--color-marca-fondo);
+  color: var(--color-blanco);
+}
+
+/* Cebra: filas pares con fondo, para seguir la fila con la vista */
+tbody tr:nth-child(even) {
+  background-color: var(--color-cebra);
+}
+
+tbody tr:hover {
+  background-color: var(--color-resalte);
+}
+
+/* Las 3 columnas de precios alineadas a la derecha (números comparables) */
+tbody td:nth-child(n + 3) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+tfoot td {
+  color: var(--color-suave);
+  font-size: 0.9rem;
+}
+
+/* En pantallas angostas la tabla se desplaza DENTRO de su contenedor, no toda la página */
+.tabla-desplazable {
+  overflow-x: auto;
+}
+
+/* ---------- 11. Formulario ---------- */
+fieldset {
+  border: 1px solid var(--color-borde);
+  border-radius: 0.5rem;
+  margin-block-end: var(--espacio-m);
+}
+
+legend {
+  font-weight: 700;
+  color: var(--color-bosque);
+  padding-inline: var(--espacio-s);
+}
+
+label {
+  display: block;
+  margin-block-start: var(--espacio-s);
+  font-weight: 600;
+}
+
+/* Radios y casilla: la etiqueta va en la misma línea que su control */
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+  display: inline;
+  font-weight: 400;
+  margin-inline-end: var(--espacio-m);
+}
+
+input:not([type="radio"], [type="checkbox"]),
+select,
+textarea {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--color-borde-fuerte);
+  border-radius: 0.5rem;
+  background-color: var(--color-superficie);
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-color: var(--color-bosque);
+}
+
+/* Error SOLO después de que el usuario interactuó con el campo */
+input:user-invalid,
+select:user-invalid {
+  border-color: var(--color-tierra);
+  background-color: var(--color-error-fondo);
+}
+
+#ayuda-celular {
+  font-size: 0.9rem;
+  color: var(--color-suave);
+  margin-block: 0.25rem 0;
+}
+
+form .boton {
+  display: block; /* en su propia línea, no junto a la casilla */
+  margin-block-start: var(--espacio-m);
+}
+
+/* ==========================================================================
+   Laboratorio 7 — Modelo de caja, posicionamiento y Flexbox
+   ========================================================================== */
+
+/* ---------- 12. Cabecera fija (sticky) con Flexbox ---------- */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-s) var(--espacio-l);
+  background-color: var(--color-fondo);
+  border-block-end: 1px solid var(--color-borde);
+  box-shadow: 0 2px 8px rgb(22 38 42 / 0.08);
+}
+
+.marca p {
+  margin: 0;
+}
+
+/* El menú: de inline-block a Flexbox */
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+  margin: 0;
+}
+
+header nav li {
+  margin: 0;
+}
+
+/* Al saltar a un ancla, el destino no queda escondido debajo de la cabecera fija */
+[id] {
+  scroll-margin-top: 7rem;
+}
+
+/* ---------- 13. Tarjetas de tours (modelo de caja + Flexbox) ---------- */
+.tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+}
+
+.tarjeta {
+  position: relative; /* referencia para la insignia */
+  flex: 1 1 16rem;
+  padding: var(--espacio-m);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgb(22 38 42 / 0.06);
+}
+
+.tarjeta img {
+  border-radius: 0.5rem;
+  margin-block-end: var(--espacio-s);
+}
+
+.tarjeta h3 {
+  margin-block-start: var(--espacio-s);
+}
+
+/* La insignia se ubica respecto de su tarjeta */
+.insignia {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  margin: 0;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--color-acento-fondo);
+  color: var(--color-blanco);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* ---------- 14. Botón flotante de WhatsApp (fixed) ---------- */
+.whatsapp-flotante {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-marca-fondo);
+  color: var(--color-blanco);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgb(22 38 42 / 0.25);
+}
+
+.whatsapp-flotante:hover {
+  color: var(--color-blanco);
+  background-color: var(--color-acento-fondo);
+}
+
+/* ---------- 15. Pie de página ---------- */
+footer {
+  margin-block-start: var(--espacio-l);
+  padding-block: var(--espacio-l) 5rem; /* espacio para que el botón flotante no tape los créditos */
+  background-color: var(--color-marca-fondo);
+  color: var(--color-blanco);
+}
+
+footer a,
+footer a:hover,
+footer small {
+  color: var(--color-blanco);
+}
+
+footer address {
+  font-style: normal;
+}
+
+/* ==========================================================================
+   Laboratorio 8 — CSS Grid
+   ========================================================================== */
+
+/* ---------- 16. Esqueleto de la página con áreas nombradas ---------- */
+body {
+  display: grid;
+  grid-template-areas:
+    "cabecera"
+    "principal"
+    "pie";
+  grid-template-rows: auto 1fr auto; /* el pie queda abajo aunque la página tenga poco contenido */
+  min-height: 100dvh;
+}
+
+header { grid-area: cabecera; }
+main   { grid-area: principal; width: 100%; min-width: 0; } /* sin min-width: 0 la tabla ensancha main */
+footer { grid-area: pie; }
+
+/* ---------- 17. Portada: texto superpuesto a la imagen (apilar en la misma celda) ---------- */
+.hero {
+  display: grid;
+  grid-template-areas: "hero";
+  border-radius: 1rem;
+  overflow: hidden; /* recorta la imagen con el radio */
+}
+
+.hero > * {
+  grid-area: hero; /* imagen y texto ocupan la MISMA celda: se superponen */
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  min-height: 24rem;
+  object-fit: cover;
+}
+
+.hero-texto {
+  align-self: end; /* el bloque de texto se ubica abajo de la celda */
+  /* Foto de Güembé: cielo y arbustos amarillos claros detrás del título. 4rem arriba deja el desvanecido
+     por encima del h1 y el velo de 0.7 lo mantiene sobre 3:1 (medido: 3.9:1 en 390 px, 4.5:1 en 1280 px) */
+  padding: 4rem var(--espacio-m) var(--espacio-m);
+  background: linear-gradient(to top, rgb(5 33 37 / 0.92), rgb(5 33 37 / 0.7) 70%, transparent);
+  color: var(--color-blanco);
+}
+
+.hero-texto h1 {
+  color: var(--color-blanco);
+  margin-block-start: 0;
+}
+
+/* ---------- 18. Galería: columnas automáticas sin media queries ---------- */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--espacio-l) var(--espacio-m);
+}
+
+.galeria section h2 {
+  font-size: 1.3rem;
+  margin-block-start: 0;
+}
+
+.galeria figure {
+  margin: 0;
+}
+
+.galeria img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/* ---------- 19. Fichas de datos (dl) en dos columnas alineadas ---------- */
+article dl,
+section dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem var(--espacio-m);
+}
+
+article dd,
+section dd {
+  margin: 0; /* el gap de la cuadrícula ya separa */
+}
+
+/* ---------- 20. Pie en columnas ---------- */
+footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--espacio-s) var(--espacio-l);
+  align-items: start;
+}
+
+/* ==========================================================================
+   Laboratorio 9 — Responsive mobile-first y modo oscuro
+   La base (todo lo anterior) es para el CELULAR. Las media queries AGREGAN mejoras
+   cuando hay más espacio: nunca al revés.
+   ========================================================================== */
+
+/* ---------- 21. Celular (base): detalles que ahorran espacio vertical ---------- */
+.marca p:nth-child(2) {
+  font-size: 0.875rem;
+}
+
+/* ---------- 22. Tablet en adelante (≥ 48em ≈ 768 px) ---------- */
+@media (min-width: 48em) {
+  /* En el celular la cabecera fija robaría ~ 1/4 de la pantalla: solo la fijamos con espacio */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .marca p:nth-child(2) {
+    font-size: 1rem;
+  }
+
+  .hero img {
+    min-height: 28rem;
+  }
+
+  .hero-texto {
+    padding: 4rem var(--espacio-l) var(--espacio-l);
+  }
+}
+
+/* ---------- 23. Escritorio (≥ 64em ≈ 1024 px) ---------- */
+@media (min-width: 64em) {
+  .hero-texto {
+    max-width: 44rem; /* líneas cortas y legibles sobre la foto */
+  }
+
+  /* Formulario: 'Tus datos' | 'Tu tour' lado a lado; el resto sigue debajo, a todo el ancho */
+  .form-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--espacio-l);
+    align-items: start;
+  }
+}
+
+/* ---------- 24. Modo oscuro automático (preferencia del sistema) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* contraste verificado: texto 15:1, suave 8.9:1, bosque 10.3:1, tierra 8.9:1 sobre el fondo */
+    --color-fondo: #0d1a1c;
+    --color-texto: #e3eeec;
+    --color-suave: #a7bcb9;
+    --color-bosque: #7fd4cf;
+    --color-tierra: #ff9e8a;
+    --color-superficie: #152629;
+    --color-borde: #2c4245;
+    --color-borde-fuerte: #5d7a7d;
+    --color-cebra: #122326;
+    --color-resalte: #233a3d;
+    --color-error-fondo: #3a1f1c;
+    /* --color-marca-fondo, --color-sol, --color-texto-sobre-sol y --color-acento-fondo NO cambian:
+       son fondos de marca con su propio color de texto (lección de Lighthouse, clase 13) */
+  }
+
+  header {
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.4);
+  }
+}
+
+/* ---------- 25. Impresión: el turista imprime el itinerario ---------- */
+@media print {
+  header nav,
+  .whatsapp-flotante,
+  video,
+  iframe,
+  form {
+    display: none;
+  }
+
+  body {
+    display: block;
+    background: none;
+    color: black;
+  }
+}
+
+/* ==========================================================================
+   Laboratorio 11 — Transiciones y animaciones con propósito
+   ========================================================================== */
+
+/* ---------- 26. Transiciones: los cambios de estado se suavizan ---------- */
+.boton,
+header nav a,
+.whatsapp-flotante {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .tarjeta {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgb(22 38 42 / 0.12);
+  }
+
+  .whatsapp-flotante:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* ---------- 27. Animación de entrada del texto de la portada ---------- */
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-texto {
+  animation: aparecer 0.6s ease-out both;
+}
+
+/* Desplazamiento suave al saltar a las anclas (índice de tours) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- 28. Respeto por quien pide menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Laboratorio 12 — Página "Nosotros": componentes nuevos, mismos tokens
+   ========================================================================== */
+
+/* ---------- 29. Texto de entrada ---------- */
+.entrada {
+  font-size: 1.15rem;
+  max-width: 65ch;
+}
+
+/* ---------- 30. Línea de tiempo (una lista ordenada con estilo) ---------- */
+.linea-tiempo {
+  list-style: none;
+  padding-inline-start: var(--espacio-m);
+  border-inline-start: 3px solid var(--color-sol);
+}
+
+.linea-tiempo li {
+  position: relative;
+  padding-inline-start: var(--espacio-m);
+  margin-block-end: var(--espacio-m);
+}
+
+.linea-tiempo li::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--espacio-m) - 0.45rem - 1.5px); /* centro del punto sobre el centro de la línea de 3px */
+  top: 0.45em;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background-color: var(--color-marca-fondo);
+  border: 3px solid var(--color-fondo);
+}
+
+.linea-tiempo strong {
+  display: block;
+  color: var(--color-bosque);
+}
+
+/* ---------- 31. Equipo: tarjetas en cuadrícula ---------- */
+.equipo {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--espacio-m);
+}
+
+.equipo li {
+  padding: var(--espacio-m);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 0.75rem;
+  text-align: center;
+}
+
+.equipo h3 {
+  margin-block: var(--espacio-s) 0.25rem;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  margin-inline: auto;
+  border-radius: 50%;
+  background-color: var(--color-marca-fondo);
+  color: var(--color-blanco);
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* ---------- 32. Cifras de impacto ---------- */
+.cifras {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--espacio-m);
+}
+
+.cifras li {
+  padding: var(--espacio-m);
+  border-radius: 0.75rem;
+  background-color: var(--color-cebra);
+}
+
+.cifras strong {
+  display: block;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  color: var(--color-bosque);
+}
+
+/* ---------- 33. Preguntas frecuentes con <details> ---------- */
+details {
+  border-block-end: 1px solid var(--color-borde);
+  padding-block: var(--espacio-s);
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding-block: var(--espacio-s);
+}
+
+details[open] summary {
+  color: var(--color-bosque);
+}
+
+details p {
+  margin-block: var(--espacio-s) var(--espacio-m);
+}
