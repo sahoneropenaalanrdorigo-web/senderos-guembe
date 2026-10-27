@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 1) Título descriptivo (antes: "Promo") y 2) meta description (faltaba: SEO) -->
+  <title>Kayak al atardecer con 20 % de descuento · Senderos Güembé</title>
+  <meta name="description" content="Kayak al atardecer en las lagunas del Biocentro Güembé a Bs 136 por persona durante noviembre de 2026. Válido para grupos de 2 o más.">
+  <link rel="stylesheet" href="css/estilos.css">
+  <meta name="theme-color" content="#0b5c63">
+  <!-- 9) favicon: sin él, el navegador pide /favicon.ico y registra un error 404 en la consola -->
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <!-- 3) Sin <style> con colores sueltos: la nota usa --color-suave (5.8:1) y el precio va en <strong> (antes: gris claro y naranja sobre fondo claro, sin contraste suficiente) -->
+</head>
+<body>
+  <main>
+    <h1>Promoción de temporada</h1>
+    <!-- 4) Jerarquía: h2 después de h1 (antes saltaba a h4) -->
+    <h2>¡Solo en noviembre!</h2>
+    <!-- 5) alt descriptivo y 6) width/height para reservar el espacio (antes: sin alt y sin dimensiones → CLS) -->
+    <img src="img/kayak-960.webp" width="960" height="640"
+         alt="Vista aérea de lagunas de formas curvas rodeadas de árboles y prados verdes">
+    <p>Kayak al atardecer con 20 % de descuento: <strong>Bs 136</strong> por persona (antes Bs 170).</p>
+    <p><small>Válido para grupos de 2 o más personas, mayores de 12 años. No acumulable con otras promociones.</small></p>
+    <!-- 7) Texto de enlace descriptivo (antes: "clic aquí") -->
+    <p><a class="boton" href="contacto.html#reserva">Reservar la promoción del kayak</a></p>
+    <!-- 8) El botón con solo un ícono no tenía nombre accesible: ahora es un enlace con texto visible -->
+    <p><a href="https://wa.me/59171000000">Consultar la promoción por WhatsApp</a></p>
+  </main>
+</body>
+</html>
