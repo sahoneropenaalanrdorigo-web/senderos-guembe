@@ -66,7 +66,24 @@ canonical en las 6 páginas públicas ✔ · robots.txt con la línea Sitemap �
 JSON-LD TravelAgency (JSON válido, con los mismos datos que muestra el sitio) ✔ · 404.html con `<base>`, probada en una
 ruta inexistente anidada ✔ · gracias.html y 404.html con noindex ✔
 
-## 6. Conclusión
+## 6. Sitio publicado (laboratorio 14)
+Dirección: https://sahoneropenaalanrdorigo-web.github.io/senderos-guembe/ (GitHub Pages, rama `main`, carpeta raíz).
+
+| Página | Rendimiento | Accesibilidad | Buenas prácticas | SEO | LCP | CLS | Peso |
+|---|---|---|---|---|---|---|---|
+| index | 99 | 100 | 100 | 100 | 1,8 s | 0 | 312 KiB |
+| contacto | 100 | 100 | 100 | 100 | 1,1 s | 0 | 472 KiB |
+| nosotros | 100 | 100 | 100 | 100 | 1,0 s | 0 | 9 KiB |
+
+Medido el 26 de octubre de 2026 con Lighthouse 12.8 (móvil) contra la URL publicada; la API de PageSpeed Insights no
+tenía cuota disponible ese día. Frente a la medición local, la portada pasa de 97 a 99 y su LCP de 2,6 a 1,8 s: GitHub
+Pages comprime los archivos y los sirve desde su red de distribución.
+
+Comprobaciones en línea: las 8 páginas, `sitemap.xml`, `robots.txt`, el CSS, el video y la imagen de Open Graph
+responden 200; una dirección inexistente (`/senderos-guembe/no-existe/otra.html`) devuelve la página 404 propia con
+código 404 y su `<base>`.
+
+## 7. Conclusión
 El sitio llega a 100 en accesibilidad, buenas prácticas y SEO en todas las páginas medidas, en claro y en oscuro, y a
 96-100 en rendimiento en las páginas propias. Las fotos reales pesan más que las ilustraciones originales: la portada y
 la galería tienen el LCP más alto (2,6 y 2,7 s en móvil simulado). La versión Bootstrap es la más pesada (543 KiB, 88 en
